@@ -23,6 +23,7 @@ def create_parser():
     parser.add_argument("-c",
                         "--count",
                         type=int,
+                        default=5,
                         help="Счетчки вызова генератора")
     subparsers = parser.add_subparsers(dest="command")
 

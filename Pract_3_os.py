@@ -62,9 +62,6 @@ def main():
                 f.write(str(next(gen)))
                 f.write('\n')
 
-
-
-
 if __name__ == "__main__":
     try:
         main()
