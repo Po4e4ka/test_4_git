@@ -20,6 +20,10 @@ def create_parser():
     parser.add_argument("step",
                         type=int,
                         help="Шаг арифметической прогрессии")
+    parser.add_argument("-c",
+                        "--count",
+                        type=int,
+                        help="Счетчки вызова генератора")
     subparsers = parser.add_subparsers(dest="command")
 
     create_subparser_save(subparsers)

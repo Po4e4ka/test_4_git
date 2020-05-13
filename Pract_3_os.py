@@ -50,7 +50,7 @@ def main():
     parser = create_parser()
     namespace = parser.parse_args()
     print(namespace)
-    COUNT = 5
+    COUNT = namespace.count
     if namespace.command == 'show':
         gen = lol_1(namespace.start, namespace.step)
         for _ in range(COUNT):
