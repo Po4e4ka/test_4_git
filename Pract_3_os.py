@@ -1,5 +1,5 @@
 import os
-import argparse
+from parser_1 import create_parser
 """
 name (uname) – получение имени (информации) операционной системы
 environ – получение словаря переменных окружения
@@ -29,14 +29,14 @@ def lol_1(start=1, step=1):
     """
     Реализовать программу, которая вычисляет целиком ряд арифметической прогрессии.
     Программа должна реализовывать следующую логику:
-    При запуске необходим указать аргументы, отвечающие за начальное значение
+        При запуске необходим указать аргументы, отвечающие за начальное значение
     (именованные или позиционные – на ваш выбор) и за шаг прогрессии,
     далее должен идти флаг save/show
-    При запуске с флагом ‘save’ далее должен идти параметр –i,
-    который указывает путь до файла, в который необходимо сохранить
-    итоговый вычисленный ряд. Проверяйте возможность сохранения.
-    При запуске с флагом ‘show’ далее не должно идти никакого параметра
-    и вычисленный ряд выводится в консоль
+            При запуске с флагом ‘save’ далее должен идти параметр –i,
+        который указывает путь до файла, в который необходимо сохранить
+        итоговый вычисленный ряд. Проверяйте возможность сохранения.
+            При запуске с флагом ‘show’ далее не должно идти никакого параметра
+        и вычисленный ряд выводится в консоль
     """
     n = start
     while True:
@@ -50,20 +50,20 @@ def main():
     parser = create_parser()
     namespace = parser.parse_args()
     print(namespace)
-    COUNT = 5
-    gen = lol_1(namespace.start, namespace.step)
-    for _ in range(COUNT):
-        print(next(gen))
+    COUNT = namespace.count
+    if namespace.command == 'show':
+        gen = lol_1(namespace.start, namespace.step)
+        for _ in range(COUNT):
+            print(next(gen))
+    elif namespace.command == 'save':
+        with open(namespace.output_file, 'w') as f:
+            gen = lol_1(namespace.start, namespace.step)
+            for _ in range(COUNT):
+                f.write(str(next(gen)))
+                f.write('\n')
 
-def create_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("start",
-                        type=int,
-                        help="Начальное значение арифметической прогрессии")
-    parser.add_argument("step",
-                        type=int,
-                        help="Шаг арифметической прогрессии")
-    return parser
+
+
 
 if __name__ == "__main__":
     try:
