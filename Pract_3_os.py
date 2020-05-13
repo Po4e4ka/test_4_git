@@ -1,5 +1,5 @@
 import os
-import argparse
+from parser_1 import create_parser
 """
 name (uname) – получение имени (информации) операционной системы
 environ – получение словаря переменных окружения
@@ -63,33 +63,7 @@ def main():
                 f.write('\n')
 
 
-def create_subparser_show(subparsers):
-    subparsers.add_parser("show",
-                          help="Режим вывода информации в консоль")
 
-def create_subparser_save(subparsers):
-    save_subparsers = subparsers.add_parser("save",
-                                            help="Режим сохранения в файл")
-    save_subparsers.add_argument('-i',
-                                 required=True,
-                                 type=str,
-                                 dest='output_file',
-                                 help="Файл для вывода")
-
-def create_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("start",
-                        type=int,
-                        help="Начальное значение арифметической прогрессии")
-    parser.add_argument("step",
-                        type=int,
-                        help="Шаг арифметической прогрессии")
-    subparsers = parser.add_subparsers(dest="command")
-    create_subparser_save(subparsers)
-    create_subparser_show(subparsers)
-
-
-    return parser
 
 if __name__ == "__main__":
     try:
