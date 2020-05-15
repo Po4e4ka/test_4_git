@@ -1,5 +1,14 @@
 from numpy import random
 tempale = [(100,250),"130-135",[1,2,3,4,5,6,7],":100"]
+
+def fab_dec_gen_ip(tempale):
+    def dec_gen_ip(func):
+        def wrapper(*args):
+            result = func(tempale)
+            return result
+        return wrapper
+    return dec_gen_ip
+@fab_dec_gen_ip([(100,120),"130-135",[1,2,3,4,5,6,7],":100"])
 def gen_ip(tempale):
     """
     По шаблону:
@@ -40,10 +49,13 @@ def gen_ip(tempale):
                     i = i.split(':')
                     if i[0] == '':
                         i[0] = '0'
-                    elif i[1] == '':
+                    if i[1] == '':
                         i[1] = '256'
                     ip_list.append(range(int(i[0]), int(i[1])))
-            elif type(i) is tuple:
+            elif type(i) is tuple or list:
+                if i == []:
+                    ip_list.append(range(0,256))
+                    continue
                 ip_list.append(range(i[0],i[1]+1))
             elif i:
                 ip_list.append(i)
@@ -52,10 +64,4 @@ def gen_ip(tempale):
 
         _input = yield '.'.join(map(str,map(random.choice,ip_list)))
         tempale = _input
-
-gen = gen_ip(tempale)
-
-print(gen.send(None))
-
-print(gen.send([[1],[2],[3],[4]]))
 
