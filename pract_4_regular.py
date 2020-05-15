@@ -95,9 +95,9 @@ def gen_ip_re():
     10.X.X.X
     192.168.[0-31, 128-191].X,
     """
-
-    gen = gen_ip([[],[],[],[]])
-    print(gen.send(None))
+    gen = gen_ip([[], [], [], []])
+    for i in range(20):
+        print(next(gen))
 
 def main():
     # ip4()
